@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -8,7 +9,12 @@ class Post(models.Model):
     url=models.URLField(max_length=200) 
     poster=models.ForeignKey(User, on_delete=models.CASCADE)
     created=models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering=['-created']
+    
+        
+        
 
-
-class Meta:
-    ordering=['-created']
+class Vote(models.Model):
+    voter=models.ForeignKey(User, on_delete=models.CASCADE)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE)
